@@ -97,6 +97,7 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 ## 👨‍💻 Desenvolvedores
 
 > João Assef 
+
 > Curso: Pós-Graduação em Programação para Internet e Dispositivos Móveis  
 > Instituto Federal de São Paulo – campus Barretos
 
