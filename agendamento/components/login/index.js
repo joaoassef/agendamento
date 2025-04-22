@@ -4,8 +4,7 @@ export const metadata = {
     title: "Login",
     description: "Página de acesso ao sistema",
 };
-  
-  
+    
 export function Login() {
 
     let login = "joao";
