@@ -7,6 +7,34 @@ export default function PainelTotem() {
 
   const [cpf, setCpf] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [corMensagem, setCorMensagem] = useState('bg-blue-600');
+
+  const validarCPF = (cpf) => {
+    cpf = cpf.replace(/[^\d]+/g, ''); // Remove tudo que não for número
+  
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+      return false;
+    }
+  
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+      soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+    let resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.charAt(9))) return false;
+  
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+      soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.charAt(10))) return false;
+  
+    return true;
+  }
+  
 
   const formatCPF = (value) => {
     // Remove tudo que não for número
@@ -39,14 +67,24 @@ export default function PainelTotem() {
   };
 
   const mostrarMensagem = () => {
-    clearNumbers();
-    setMensagem('Muito obrigado! Agora só aguardar e acompanhar no painel.');
+
+    clearNumbers(); //Limpa o campo de CPF
+
+    let tempo = 10000; //Tempo padrão de 10 segundos
+    if (!validarCPF(cpf)) {
+      setMensagem('CPF inválido ou não cadastrado!');
+      setCorMensagem('bg-red-600');
+      tempo = 3000;
+    }else{
+      setCorMensagem('bg-green-600');
+      setMensagem('Muito obrigado! Agora só aguardar e acompanhar no painel.');
+    }
 
     // Some após 3 segundos
     setTimeout(() => {
       setMensagem('');
       clearNumbers();
-    }, 8000);
+    }, tempo);
   };
 
   return (
@@ -89,7 +127,7 @@ export default function PainelTotem() {
         {/* Mostrar mensagem de sucesso */}
         {mensagem && (
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="bg-blue-600 text-white text-4xl px-10 py-8 rounded-lg shadow-lg animate-fade">
+            <div className={`${corMensagem} text-white text-4xl px-10 py-8 rounded-lg shadow-lg animate-fade`}>
               {mensagem}
             </div>
           </div>
