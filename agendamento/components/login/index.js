@@ -15,7 +15,7 @@ export function Login() {
    
     return (
                 
-            <div className="h-screen flex items-center justify-center">
+            <div className="h-screen items-center justify-center">
 
                 {admin === 1 ? (
         
