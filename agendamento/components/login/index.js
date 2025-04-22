@@ -3,7 +3,8 @@ import { CadastroAdmin } from "../cadastroAdmin";
 export const metadata = {
     title: "Login",
     description: "Página de acesso ao sistema",
-  };
+};
+  
   
 export function Login() {
 
@@ -11,11 +12,11 @@ export function Login() {
     let senha = "12345678";
 
     //Se o existir administrador cadastrado, exibe o formulário de login, se não exibe o formulário de cadastro do administrador
-    let admin = 0;
+    let admin = 1;
    
     return (
                 
-            <div className="h-screen items-center justify-center">
+            <div className="h-screen flex items-center justify-center">
 
                 {admin === 1 ? (
         

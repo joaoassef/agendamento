@@ -30,7 +30,7 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ## ✅ Funcionalidades Principais
 
-[x] Primeira execução com cadastro de administrador e tempo padrão de atraso;
+- Primeira execução com cadastro de administrador e tempo padrão de atraso;
 - Autenticação de usuários;
 - Dashboard personalizado por perfil;
 - Gerenciamento de tipos de exames;

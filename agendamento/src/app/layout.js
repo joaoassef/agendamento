@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Sistema de agendamento",
-  description: "sistema de agendamento de exames",
+  description: "sistema de agendamento de agendamento",
 };
 
 export default function RootLayout({ children }) {
