@@ -78,6 +78,10 @@ export default function PainelTotem() {
     }else{
       setCorMensagem('bg-green-600');
       setMensagem('Muito obrigado! Agora só aguardar e acompanhar no painel.');
+
+      //Neste momento tenho que salvar o CPF na base para aparecer no painel
+      //.........ATENÇÃO..................
+
     }
 
     // Some após 3 segundos
