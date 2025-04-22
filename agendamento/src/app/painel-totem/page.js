@@ -84,10 +84,10 @@ export default function PainelTotem() {
 
     }
 
-    // Some após 3 segundos
+    //Tempo para mostrar a mensagem
     setTimeout(() => {
       setMensagem('');
-      clearNumbers();
+      
     }, tempo);
   };
 
@@ -123,7 +123,7 @@ export default function PainelTotem() {
           <div  className=" flex items-center justify-center text-6xl">
              <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('0')}>0</div>
              <div className="p-8 bg-red-500 rounded-md px-9 text-white m-2 cursor-pointer shadow-lg" onClick={() => clearNumbers()}> X </div>
-             <div className="p-8 bg-green-500 rounded-md px-4 text-white m-2 cursor-pointer shadow-lg" onClick={() => mostrarMensagem()}><strong>OK</strong></div>
+             <div className="p-8 bg-blue-700 rounded-md px-4 text-white m-2 cursor-pointer shadow-lg" onClick={() => mostrarMensagem()}><strong>OK</strong></div>
           </div>
 
        </div>
