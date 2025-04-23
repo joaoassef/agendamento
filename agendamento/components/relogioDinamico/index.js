@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 
 export function RelogioDinamico() {
@@ -30,5 +31,5 @@ export function RelogioDinamico() {
     return `${dia} de ${mesPorExtenso} de ${ano} - ${hora}`;
   }
 
-  return <div className="text-lg">{dataHora}</div>;
+  return <span>{dataHora}</span>;
 }
