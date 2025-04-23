@@ -92,51 +92,57 @@ export default function PainelTotem() {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-black">
-      
-      <div className="text-center border-1 border-solid p-8 rounded-md bg-white shadow-lg">
+    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+  <div className="text-center border border-solid p-5 sm:p-8 rounded-md bg-white shadow-lg w-full max-w-md sm:max-w-lg md:max-w-2xl">
 
-          <h1 className="font-normal text-7xl" >Informe seu CPF</h1>
-        
-          <div className="mt-8">
-            <input type="text" name="cpf" value={cpf} onChange={handleChange} className="bg-zinc-200 pb-2 rounded-md mb-2 text-8xl text-center font-medium text-blue-700 shadow-lg" placeholder="000.000.000-00" required />
-          </div>
+    <h1 className="font-normal text-3xl sm:text-5xl md:text-6xl lg:text-6xl">Informe seu CPF</h1>
 
-          <div  className="mt-4  flex items-center justify-center text-6xl">
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('7')}>7</div>
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('8')}>8</div>
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('9')}>9</div>
-          </div>
-
-          <div  className=" flex items-center justify-center text-6xl">
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('4')}>4</div>
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('5')}>5</div>
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('6')}>6</div>
-          </div>
-
-          <div  className=" flex items-center justify-center text-6xl">
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('1')}>1</div>
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('2')}>2</div>
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('3')}>3</div>
-          </div>
-
-          <div  className=" flex items-center justify-center text-6xl">
-             <div className="p-8 bg-cyan-500 rounded-md px-10 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('0')}>0</div>
-             <div className="p-8 bg-red-500 rounded-md px-9 text-white m-2 cursor-pointer shadow-lg" onClick={() => clearNumbers()}> X </div>
-             <div className="p-8 bg-blue-700 rounded-md px-4 text-white m-2 cursor-pointer shadow-lg" onClick={() => mostrarMensagem()}><strong>OK</strong></div>
-          </div>
-
-       </div>
-
-        {/* Mostrar mensagem de sucesso */}
-        {mensagem && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className={`${corMensagem} text-white text-4xl px-10 py-8 rounded-lg shadow-lg animate-fade`}>
-              {mensagem}
-            </div>
-          </div>
-        )}
-
+    <div className="mt-6">
+      <input
+        type="text"
+        name="cpf"
+        value={cpf}
+        onChange={handleChange}
+        className="w-full bg-zinc-200 py-2 px-4 rounded-md mb-4 text-3xl sm:text-5xl md:text-6xl text-center font-medium text-blue-700 shadow-lg"
+        placeholder="000.000.000-00"
+        required
+      />
     </div>
+
+    <div className="mt-4 flex items-center justify-center text-3xl sm:text-5xl md:text-6xl">
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('7')}>7</div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('8')}>8</div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('9')}>9</div>
+    </div>
+
+    <div className="flex items-center justify-center text-3xl sm:text-5xl md:text-6xl">
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('4')}>4</div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('5')}>5</div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('6')}>6</div>
+    </div>
+
+    <div className="flex items-center justify-center text-3xl sm:text-5xl md:text-6xl">
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('1')}>1</div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('2')}>2</div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('3')}>3</div>
+    </div>
+
+    <div className="flex items-center justify-center text-3xl sm:text-5xl md:text-6xl">
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-cyan-500 rounded-md px-6 sm:px-8 text-white m-2 cursor-pointer shadow-lg" onClick={() => handleAddNumber('0')}>0</div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-red-500 rounded-md px-5 sm:px-7 text-white m-2 cursor-pointer shadow-lg" onClick={() => clearNumbers()}> X </div>
+      <div className="w-24 h-24 sm:w-28 sm:h-28 p-4 sm:p-6 bg-blue-700 rounded-md px-4 sm:px-2 text-white m-2 cursor-pointer shadow-lg" onClick={() => mostrarMensagem()}><strong>OK</strong></div>
+    </div>
+  </div>
+
+  {/* Mensagem de sucesso */}
+  {mensagem && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className={`${corMensagem} text-white text-2xl sm:text-3xl md:text-4xl px-6 sm:px-10 py-4 sm:py-8 rounded-lg shadow-lg animate-fade`}>
+        {mensagem}
+      </div>
+    </div>
+  )}
+</div>
+
   );
 }
