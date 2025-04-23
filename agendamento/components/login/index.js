@@ -15,11 +15,11 @@ export function Login() {
    
     return (
                 
-            <div className="h-screen flex items-center justify-center">
+            <div className="h-screen flex items-center justify-center bg-blue-950">
 
                 {admin === 1 ? (
         
-                <div className="flex justify-center border-1 border-solid p-4 rounded-md">
+                <div className="flex justify-center border-1 border-solid p-4 rounded-md bg-amber-50">
                 
                     <form action="" method="POST">
 

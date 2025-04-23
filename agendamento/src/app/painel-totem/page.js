@@ -92,7 +92,7 @@ export default function PainelTotem() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+    <div className="min-h-screen flex items-center justify-center bg-blue-950 p-4">
   <div className="text-center border border-solid p-5 sm:p-8 rounded-md bg-white shadow-lg w-full max-w-md sm:max-w-lg md:max-w-2xl">
 
     <h1 className="font-normal text-3xl sm:text-5xl md:text-6xl lg:text-6xl">Informe seu CPF</h1>
