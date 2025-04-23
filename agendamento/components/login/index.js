@@ -11,7 +11,7 @@ export function Login() {
     let senha = "12345678";
 
     //Se o existir administrador cadastrado, exibe o formulário de login, se não exibe o formulário de cadastro do administrador
-    let admin = 1;
+    let admin = 0;
    
     return (
                 

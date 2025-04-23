@@ -27,7 +27,7 @@ export default function PaginaInicial() {
                 <Link href="/painel-adm">
                     <div className="bg-blue-900 text-amber-50 p-4 h-50 flex flex-col items-center justify-center rounded-2xl shadow-black">
                     <FontAwesomeIcon icon={faSliders} className="text-2xl mb-2 p-4" />
-                    <div>Acesso ao Sistema</div>
+                    <div>Administrativo</div>
                     </div>
                 </Link>
 
