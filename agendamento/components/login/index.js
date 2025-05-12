@@ -1,3 +1,6 @@
+'use client';
+
+import { useCheckCadastro } from "@/useCheckCadastro";
 import { CadastroAdmin } from "../cadastroAdmin";
 
 export const metadata = {
@@ -7,12 +10,9 @@ export const metadata = {
     
 export function Login() {
 
-    let login = "joao";
-    let senha = "12345678";
+    //Verifica se existe algum administrador cadastrado no banco de dados    //Se o existir administrador cadastrado, exibe o formulário de login, se não exibe o formulário de cadastro do administrador
+    let admin = useCheckCadastro();
 
-    //Se o existir administrador cadastrado, exibe o formulário de login, se não exibe o formulário de cadastro do administrador
-    let admin = 0;
-   
     return (
                 
             <div className="h-screen flex items-center justify-center bg-blue-950">
@@ -47,9 +47,11 @@ export function Login() {
                         </div>
                     
                     </form>
+                
                 </div>
 
             ) : <>
+            
                 <CadastroAdmin />
                 </>
                 

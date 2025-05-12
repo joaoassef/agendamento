@@ -18,7 +18,10 @@ export function CadastroAdmin() {
                     <p>Estamos felizes que esteja utilizando nossa aplicação. </p>
                     <p>Vamos cria o cadastro do administrador do sistema?</p>
                     <p>Preencha os formulário ao lado.</p>
+                    <hr></hr>
+
                 </div>
+
                 
                     <form action="" method="POST">
 
@@ -54,8 +57,11 @@ export function CadastroAdmin() {
                         <div>
                             <button type="submit" className="bg-blue-500 text-white px-3 py-1 rounded-md">Cadastrar</button>
                         </div>
+
+                        
                     
                     </form>
+                    
                 </div>
 
 
