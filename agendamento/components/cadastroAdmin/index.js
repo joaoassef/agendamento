@@ -111,7 +111,7 @@ export function CadastroAdmin() {
 
             {mensagem && (
               <div className="mt-4 text-sm text-center text-red-600">
-                {mensagem}
+                {mensagem} 
               </div>
             )}
           </form>
