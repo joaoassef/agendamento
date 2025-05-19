@@ -10,7 +10,8 @@ export const metadata = {
     
 export function Login() {
 
-    //Verifica se existe algum administrador cadastrado no banco de dados    //Se o existir administrador cadastrado, exibe o formulário de login, se não exibe o formulário de cadastro do administrador
+    //Verifica se existe algum administrador cadastrado no banco de dados    
+    //Se o existir administrador cadastrado, exibe o formulário de login, se não exibe o formulário de cadastro do administrador
     let admin = useCheckCadastro();
 
     return (
