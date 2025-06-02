@@ -1,22 +1,22 @@
-'use client'; // Garanta que o componente seja tratado como "client-side"
+"use client"; // Garanta que o componente seja tratado como "client-side"
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Importação correta do `useRouter`
+import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Importação correta do `useRouter`
 
 export function CadastroAdmin() {
   const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    senha: '',
+    Nome: "",
+    Email: "",
+    Senha: "",
   });
 
-  const [mensagem, setMensagem] = useState('');
+  const [mensagem, setMensagem] = useState("");
   const router = useRouter(); // Usando o `useRouter` corretamente dentro do componente funcional
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -25,54 +25,56 @@ export function CadastroAdmin() {
 
     const dados = {
       ...formData,
-      tempoMaximoAtraso: "00:15:00"
+      TempoMaximoAtraso: "30",
     };
 
     try {
-      const response = await fetch('http://localhost:5236/api/Administrador', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5236/api/Administrador", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          "x-api-key": "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
+          "Content-Type": "application/json",
+          "x-api-key":
+            "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
         },
-        body: JSON.stringify(dados)
+        body: JSON.stringify(dados),
       });
 
       if (!response.ok) {
-        const erroDetalhado = await response.text();
-        throw new Error(`Erro ao cadastrar administrador: ${erroDetalhado}`);
+        const errorBody = await response.text(); // Obtenha a resposta de erro bruta
+        console.error("API Error Response:", errorBody); // Registre o erro bruto
+        throw new Error(
+          `Erro ao cadastrar administrador: ${response.status} - ${response.statusText} - ${errorBody}`
+        );
       }
 
       const resultado = await response.json();
       setMensagem("✅ Administrador cadastrado com sucesso!");
-      
-      
-
     } catch (error) {
-      //console.error("Erro:", error.message);
-      //setMensagem(`❌ ${error.message}`);
+      console.error("Erro:", error.message);
+      setMensagem(`❌ ${error.message}`);
     }
-    
-    // Redireciona para a página inicial após o sucesso
-    router.push('/'); // Redireciona para a página principal ou uma página específica 
 
+    // Redireciona para a página inicial após o sucesso
+    router.push("/"); // Redireciona para a página principal ou uma página específica
   };
-  
 
   return (
     <div className="h-screen flex items-center justify-center bg-blue-950">
       <div className="flex justify-center border p-6 rounded-md bg-amber-50 w-[700px]">
         <div className="px-6 w-full">
           <h1 className="text-2xl font-bold mb-4">Cadastrar Administrador</h1>
-          <p className="mb-4">Preencha os dados abaixo para criar o primeiro administrador do sistema.</p>
+          <p className="mb-4">
+            Preencha os dados abaixo para criar o primeiro administrador do
+            sistema.
+          </p>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label>Nome Completo</label>
               <input
                 type="text"
-                name="nome"
-                value={formData.nome}
+                name="Nome"
+                value={formData.Nome}
                 onChange={handleChange}
                 className="bg-zinc-200 px-3 py-2 rounded-md w-full"
                 required
@@ -83,8 +85,8 @@ export function CadastroAdmin() {
               <label>E-mail</label>
               <input
                 type="email"
-                name="email"
-                value={formData.email}
+                name="Email"
+                value={formData.Email}
                 onChange={handleChange}
                 className="bg-zinc-200 px-3 py-2 rounded-md w-full"
                 required
@@ -95,8 +97,8 @@ export function CadastroAdmin() {
               <label>Senha</label>
               <input
                 type="password"
-                name="senha"
-                value={formData.senha}
+                name="Senha"
+                value={formData.Senha}
                 onChange={handleChange}
                 className="bg-zinc-200 px-3 py-2 rounded-md w-full"
                 required
@@ -112,7 +114,7 @@ export function CadastroAdmin() {
 
             {mensagem && (
               <div className="mt-4 text-sm text-center text-red-600">
-                {mensagem} 
+                {mensagem}
               </div>
             )}
           </form>
