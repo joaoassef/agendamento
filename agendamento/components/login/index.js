@@ -1,63 +1,115 @@
-'use client';
+"use client";
 
 import { useCheckCadastro } from "@/useCheckCadastro";
 import { CadastroAdmin } from "../cadastroAdmin";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const metadata = {
-    title: "Login",
-    description: "Página de acesso ao sistema",
+  title: "Login",
+  description: "Página de acesso ao sistema",
 };
-    
+
 export function Login() {
+  const [formData, setFormData] = useState({
+    Email: "",
+    Senha: "",
+  });
 
-    //Verifica se existe algum administrador cadastrado no banco de dados    
-    //Se o existir administrador cadastrado, exibe o formulário de login, se não exibe o formulário de cadastro do administrador
-    let admin = useCheckCadastro();
+  const [mensagem, setMensagem] = useState("");
+  const router = useRouter();
 
-    return (
-                
-            <div className="h-screen flex items-center justify-center bg-blue-950">
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-                {admin === 1 ? (
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5236/api/Autenticacao", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
+        },
+        body: JSON.stringify({
+          email: formData.username,
+          senha: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`❌ Erro no login: ${errorText}`);
         
-                <div className="flex justify-center border-1 border-solid p-4 rounded-md bg-amber-50">
-                
-                    <form action="" method="POST">
+      }
 
-                        <div>
-                            <div>
-                                <label form="">Usuário</label>
-                            </div>
-                            <div>
-                                <input type="text" name="username" className="bg-zinc-200 px-3 py-1 rounded-md mb-4" placeholder="" required />
-                            </div>
-                        </div>
+      const resultado = await response.json();
+      console.log("Login bem-sucedido!", resultado);
 
-                        <div>
-                            <div>
-                                <label form="">Usuário</label>
-                            </div>
+      setMensagem("✅ Login realizado com sucesso!");
+      // Redireciona após o login, se necessário
+      router.push("/painel"); // Substitua pela rota correta do painel
+    } catch (error) {
+      setMensagem(error.message);
+    }
+  };
 
-                            <div className="text-center">
-                                <input type="password" name="password" className="bg-zinc-200 px-3 py-1 rounded-md mb-4 " placeholder="" required />
-                            </div>
-                        </div>
+  const admin = useCheckCadastro();
 
-                        <div>
-                            <button type="submit" className="bg-blue-500 text-white px-3 py-1 rounded-md">Entrar</button>
-                        </div>
-                    
-                    </form>
-                
-                </div>
+  return (
+    <div className="h-screen flex items-center justify-center bg-blue-950">
+      {admin === 1 ? (
+        <div className="flex justify-center border-1 border-solid p-4 rounded-md bg-amber-50">
+          <form onSubmit={handleSubmit} method="POST">
+            <div>
+              <div><label>Usuário</label></div>
+              <input
+                type="text"
+                name="Email"
+                value={formData.Email}
+                onChange={handleChange}
+                className="bg-zinc-200 px-3 py-1 rounded-md mb-4"
+                required
+              />
+            </div>
 
-            ) : <>
-            
-                <CadastroAdmin />
-                </>
-                
-                }
+            <div>
+              <div><label>Senha</label></div>
+              <input
+                type="password"
+                name="Senha"
+                value={formData.Senha}
+                onChange={handleChange}
+                className="bg-zinc-200 px-3 py-1 rounded-md mb-4"
+                required
+              />
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-3 py-1 rounded-md"
+              >
+                Entrar
+              </button>
+            </div>
+
+            {mensagem && (
+              <div className="mt-4 text-center text-red-600 text-sm">
+                {mensagem}
+              </div>
+            )}
+          </form>
         </div>
-      
-    );
-  }
+      ) : (
+        <CadastroAdmin />
+      )}
+    </div>
+  );
+}
