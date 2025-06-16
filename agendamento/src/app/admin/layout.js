@@ -7,16 +7,15 @@ export const metadata = {
 
 export default function AdminLayout({ children }) {
   const botoes = [
-    { label: "Cadastro de Agendamento", rota: "/admin/cadastro/agendamento" },
-    { label: "Cadastro de Administrador", rota: "/admin/cadastro/administrador" },
-    { label: "Cadastro de Secretaria", rota: "/admin/cadastro/secretaria" },
-    { label: "Cadastro de Exames", rota: "/admin/cadastro/exames" },
+    { label: "Agendamento", rota: "/admin/cadastro/agendamento" },
+    { label: "Administração", rota: "/admin/cadastro/administrador" },
+    { label: "Secretaria", rota: "/admin/cadastro/secretaria" },
+    { label: "Exames", rota: "/admin/cadastro/exames" },
     { label: "Entrada de Paciente", rota: "/admin/entrada/paciente" },
   ];
 
   return (
-    <html lang="pt-br">
-      <body>
+
         <div className="h-screen flex">
           {/* Menu Lateral */}
           <aside className="w-64 bg-blue-900 text-white p-6">
@@ -42,7 +41,6 @@ export default function AdminLayout({ children }) {
             
           </main>
         </div>
-      </body>
-    </html>
+
   );
 }

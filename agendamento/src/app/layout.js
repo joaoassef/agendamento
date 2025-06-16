@@ -1,4 +1,3 @@
-
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,15 +13,13 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Sistema de agendamento",
-  description: "sistema de agendamento de agendamento",
+  description: "Sistema de agendamento de exames",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-br">
-      <body>
-        {children}
-      </body>
+    <html lang="pt-br" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
