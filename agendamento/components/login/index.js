@@ -15,8 +15,8 @@ export const metadata = {
 export function Login() {
   // Estado para armazenar os dados do formulário de login
   const [formData, setFormData] = useState({
-    Email: "",
-    Senha: "",
+    email: "",
+    senha: "",
   });
 
   // Estado para mensagens de erro ou sucesso
@@ -39,31 +39,36 @@ export function Login() {
     event.preventDefault(); // Previne recarregamento da página
 
     try {
-      const response = await fetch("http://localhost:5236/api/Autenticacao/Login", {
+
+      const response = await fetch("/api/Autenticacao/Login", {
         method: "POST",
         headers: {
-          // Chave de autenticação da API
-          "x-api-key": "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
+          "Content-Type": "application/json",
+          "x-api-key":
+            "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
         },
         body: JSON.stringify({
-          Email: formData.Email,
-          Senha: formData.Senha,
+          email: formData.email,
+          senha: formData.senha,
         }),
       });
+
+      console.log("Login:", response);
 
       // Se a resposta não for OK, lança erro detalhado
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`❌ Erro no login: ${errorText}`);
+        throw new Error(`OPS! Erro no login.`); //Para mostar o erro ---> ${errorText}
       }
 
       // Resposta bem-sucedida
       const resultado = await response.json();
       console.log("Login bem-sucedido!", resultado);
+      
 
       // Define mensagem de sucesso e redireciona
       setMensagem("✅ Login realizado com sucesso!");
-      router.push("/painel"); // Redireciona para o painel do sistema
+      router.push("/admin"); // Redireciona para o painel do sistema
     } catch (error) {
       // Mostra mensagem de erro em caso de falha
       setMensagem(error.message);
@@ -72,6 +77,8 @@ export function Login() {
 
   // Hook que verifica se já existe algum administrador cadastrado
   const admin = useCheckCadastro(); // Retorna 0 se não houver nenhum admin
+
+  console.log("Status do administrador:", admin); // Log para depuração
 
   return (
     <div className="h-screen flex items-center justify-center bg-blue-950">
@@ -83,11 +90,13 @@ export function Login() {
         <div className="flex justify-center border-1 border-solid p-4 rounded-md bg-amber-50">
           <form onSubmit={handleSubmit} method="POST">
             <div>
-              <div><label>Usuário</label></div>
+              <div>
+                <label>Usuário</label>
+              </div>
               <input
                 type="text"
-                name="Email"
-                value={formData.Email}
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 className="bg-zinc-200 px-3 py-1 rounded-md mb-4"
                 required
@@ -95,11 +104,13 @@ export function Login() {
             </div>
 
             <div>
-              <div><label>Senha</label></div>
+              <div>
+                <label>senha</label>
+              </div>
               <input
                 type="password"
-                name="Senha"
-                value={formData.Senha}
+                name="senha"
+                value={formData.senha}
                 onChange={handleChange}
                 className="bg-zinc-200 px-3 py-1 rounded-md mb-4"
                 required

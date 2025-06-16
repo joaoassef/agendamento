@@ -44,7 +44,7 @@ export default function PaginaInicial() {
               className="text-8xl mb-2 p-4"
             />
             {/* Adicione o tamanho do texto para manter a proporção com outros cards, se ainda não o fez */}
-            <div className="text-xl">Totem</div>
+            <div className="text-xl">Administração</div>
           </div>
         </Link>
       </div>

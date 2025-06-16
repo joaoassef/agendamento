@@ -29,15 +29,26 @@ export function CadastroAdmin() {
     };
 
     try {
-      const response = await fetch("http://localhost:5236/api/Administrador", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key":
-            "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
-        },
-        body: JSON.stringify(dados),
-      });
+      // const response = await fetch("http://localhost:5236/api/Administrador", {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "x-api-key":
+      //       "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
+      //   },
+      //   body: JSON.stringify(dados),
+      // });
+
+      const query = new URLSearchParams(dados).toString();
+      const response = await fetch(
+        `/api/Administrador?${query}`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
+          },
+        }
+      );
 
       if (!response.ok) {
         const errorBody = await response.text(); // Obtenha a resposta de erro bruta
