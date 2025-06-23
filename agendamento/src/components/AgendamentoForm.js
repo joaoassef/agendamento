@@ -9,7 +9,7 @@ const camposIniciais = {
   email: "",
   dataNascimento: "",
   dataHoraExame: "",
-  tipoExameId: ""
+  tipoExameId: "",
 };
 
 export default function AgendamentoForm() {
@@ -22,8 +22,8 @@ export default function AgendamentoForm() {
       try {
         const res = await fetch("/api/TipoExame", {
           headers: {
-            "x-api-key": API_KEY
-          }
+            "x-api-key": API_KEY,
+          },
         });
 
         if (!res.ok) throw new Error("Erro ao carregar tipos de exame");
@@ -60,7 +60,7 @@ export default function AgendamentoForm() {
       email: formData.email,
       tipoExameId: Number(formData.tipoExameId),
       dataNascimento: formatISO(formData.dataNascimento),
-      dataHoraExame: formatISO(formData.dataHoraExame)
+      dataHoraExame: formatISO(formData.dataHoraExame),
     };
 
     console.log("Payload enviado:", payload);
@@ -70,7 +70,7 @@ export default function AgendamentoForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": API_KEY
+          "x-api-key": API_KEY,
         },
         body: JSON.stringify(payload),
       });
@@ -81,7 +81,12 @@ export default function AgendamentoForm() {
       if (!res.ok) throw new Error(respostaApi);
 
       setStatus("success");
-      setFormData(camposIniciais);
+
+      setTimeout(() => {
+        setFormData(camposIniciais);
+        setStatus(null);
+      }, 3000); // Apos 3 segundos, limpa o formulário e o status deixa proximo agendamento
+
     } catch (error) {
       console.error("Erro no submit:", error);
       setStatus("error");
@@ -93,11 +98,16 @@ export default function AgendamentoForm() {
       onSubmit={handleSubmit}
       className="space-y-6 p-6 bg-white shadow-md rounded-xl max-w-xl mx-auto"
     >
-      <h2 className="text-xl font-bold text-gray-800">Cadastro de Agendamento</h2>
+      <h2 className="text-xl font-bold text-gray-800">
+        Cadastro de Agendamento
+      </h2>
 
       {["nome", "cpf", "email"].map((campo) => (
         <div key={campo}>
-          <label htmlFor={campo} className="block text-sm font-medium text-gray-700 capitalize">
+          <label
+            htmlFor={campo}
+            className="block text-sm font-medium text-gray-700 capitalize"
+          >
             {campo}
           </label>
           <input
@@ -114,7 +124,10 @@ export default function AgendamentoForm() {
       ))}
 
       <div>
-        <label htmlFor="dataNascimento" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="dataNascimento"
+          className="block text-sm font-medium text-gray-700"
+        >
           Data de Nascimento
         </label>
         <input
@@ -129,7 +142,10 @@ export default function AgendamentoForm() {
       </div>
 
       <div>
-        <label htmlFor="dataHoraExame" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="dataHoraExame"
+          className="block text-sm font-medium text-gray-700"
+        >
           Data e Hora do Exame
         </label>
         <input
@@ -144,7 +160,10 @@ export default function AgendamentoForm() {
       </div>
 
       <div>
-        <label htmlFor="tipoExameId" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="tipoExameId"
+          className="block text-sm font-medium text-gray-700"
+        >
           Tipo de Exame
         </label>
         <select
@@ -157,7 +176,9 @@ export default function AgendamentoForm() {
         >
           <option value="">Selecione o tipo de exame</option>
           {tiposExame.map((tipo) => (
-            <option key={tipo.id} value={tipo.id}>{tipo.nome}</option>
+            <option key={tipo.id} value={tipo.id}>
+              {tipo.nome}
+            </option>
           ))}
         </select>
       </div>
@@ -170,8 +191,14 @@ export default function AgendamentoForm() {
       </button>
 
       {status === "loading" && <p className="text-gray-500">Enviando...</p>}
-      {status === "success" && <p className="text-green-600">Agendamento realizado com sucesso!</p>}
-      {status === "error" && <p className="text-red-600">Erro ao realizar agendamento. Veja o console.</p>}
+      {status === "success" && (
+        <p className="text-green-600">Agendamento realizado com sucesso!</p>
+      )}
+      {status === "error" && (
+        <p className="text-red-600">
+          Erro ao realizar agendamento. Veja o console.
+        </p>
+      )}
     </form>
   );
 }
