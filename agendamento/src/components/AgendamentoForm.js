@@ -1,8 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const API_KEY =
-  "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f";
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const camposIniciais = {
   nome: "",
