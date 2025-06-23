@@ -9,7 +9,7 @@ const camposIniciais = {
   email: "",
   dataNascimento: "",
   dataHoraExame: "",
-  tipoExameId: "",
+  tipoExameId: ""
 };
 
 export default function AgendamentoForm() {
@@ -22,8 +22,8 @@ export default function AgendamentoForm() {
       try {
         const res = await fetch("/api/TipoExame", {
           headers: {
-            "x-api-key": API_KEY,
-          },
+            "x-api-key": API_KEY
+          }
         });
 
         if (!res.ok) throw new Error("Erro ao carregar tipos de exame");
@@ -55,12 +55,12 @@ export default function AgendamentoForm() {
     setStatus("loading");
 
     const payload = {
-      cpf: formData.cpf.replace(/\D/g, ""), // remove pontuação
+      cpf: formData.cpf.replace(/\D/g, ""),
       nome: formData.nome,
       email: formData.email,
       tipoExameId: Number(formData.tipoExameId),
       dataNascimento: formatISO(formData.dataNascimento),
-      dataHoraExame: formatISO(formData.dataHoraExame),
+      dataHoraExame: formatISO(formData.dataHoraExame)
     };
 
     console.log("Payload enviado:", payload);
@@ -70,7 +70,7 @@ export default function AgendamentoForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": API_KEY,
+          "x-api-key": API_KEY
         },
         body: JSON.stringify(payload),
       });
@@ -89,66 +89,89 @@ export default function AgendamentoForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-md mx-auto">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 p-6 bg-white shadow-md rounded-xl max-w-xl mx-auto"
+    >
+      <h2 className="text-xl font-bold text-gray-800">Cadastro de Agendamento</h2>
+
       {["nome", "cpf", "email"].map((campo) => (
-        <input
-          key={campo}
-          type={campo === "email" ? "email" : "text"}
-          name={campo}
-          placeholder={campo.charAt(0).toUpperCase() + campo.slice(1)}
-          value={formData[campo]}
-          onChange={handleChange}
-          required
-          className="w-full border p-2"
-        />
+        <div key={campo}>
+          <label htmlFor={campo} className="block text-sm font-medium text-gray-700 capitalize">
+            {campo}
+          </label>
+          <input
+            id={campo}
+            type={campo === "email" ? "email" : "text"}
+            name={campo}
+            placeholder={campo.charAt(0).toUpperCase() + campo.slice(1)}
+            value={formData[campo]}
+            onChange={handleChange}
+            required
+            className="mt-1 w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
       ))}
 
-      <input
-        type="date"
-        name="dataNascimento"
-        value={formData.dataNascimento}
-        onChange={handleChange}
-        required
-        className="w-full border p-2"
-      />
+      <div>
+        <label htmlFor="dataNascimento" className="block text-sm font-medium text-gray-700">
+          Data de Nascimento
+        </label>
+        <input
+          id="dataNascimento"
+          type="date"
+          name="dataNascimento"
+          value={formData.dataNascimento}
+          onChange={handleChange}
+          required
+          className="mt-1 w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-      <input
-        type="datetime-local"
-        name="dataHoraExame"
-        value={formData.dataHoraExame}
-        onChange={handleChange}
-        required
-        className="w-full border p-2"
-      />
+      <div>
+        <label htmlFor="dataHoraExame" className="block text-sm font-medium text-gray-700">
+          Data e Hora do Exame
+        </label>
+        <input
+          id="dataHoraExame"
+          type="datetime-local"
+          name="dataHoraExame"
+          value={formData.dataHoraExame}
+          onChange={handleChange}
+          required
+          className="mt-1 w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-      <select
-        name="tipoExameId"
-        value={formData.tipoExameId}
-        onChange={handleChange}
-        required
-        className="w-full border p-2"
+      <div>
+        <label htmlFor="tipoExameId" className="block text-sm font-medium text-gray-700">
+          Tipo de Exame
+        </label>
+        <select
+          id="tipoExameId"
+          name="tipoExameId"
+          value={formData.tipoExameId}
+          onChange={handleChange}
+          required
+          className="mt-1 w-full border rounded-lg p-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Selecione o tipo de exame</option>
+          {tiposExame.map((tipo) => (
+            <option key={tipo.id} value={tipo.id}>{tipo.nome}</option>
+          ))}
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition w-full"
       >
-        <option value="">Selecione o tipo de exame</option>
-        {tiposExame.map((tipo) => (
-          <option key={tipo.id} value={tipo.id}>
-            {tipo.nome}
-          </option>
-        ))}
-      </select>
-
-      <button type="submit" className="bg-blue-600 text-white p-2 w-full">
         Agendar
       </button>
 
-      {status === "loading" && <p>Enviando...</p>}
-      {status === "success" && (
-        <p className="text-green-600">Agendamento realizado com sucesso!</p>
-      )}
-      {status === "error" && (
-        <p className="text-red-600">
-          Erro ao realizar agendamento. Veja o console.
-        </p>
-      )}
+      {status === "loading" && <p className="text-gray-500">Enviando...</p>}
+      {status === "success" && <p className="text-green-600">Agendamento realizado com sucesso!</p>}
+      {status === "error" && <p className="text-red-600">Erro ao realizar agendamento. Veja o console.</p>}
     </form>
   );
 }
