@@ -1,8 +1,10 @@
-export default function CadastroExames() {
+"use client";
+import CadastroExameForm from "@/components/CadastroExameForm";
+
+export default function Page() {
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold">Cadastro de Exames</h1>
-      <p>Em breve, formulário de cadastro de exames...</p>
-    </div>
+    <main className="p-4">
+      <CadastroExameForm />
+    </main>
   );
 }
