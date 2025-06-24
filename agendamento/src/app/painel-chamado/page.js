@@ -8,7 +8,25 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 export default function PainelChamado() {
   const [chamadoAtual, setChamadoAtual] = useState(null);
   const [ultimosChamados, setUltimosChamados] = useState([]);
+  const [tiposExame, setTiposExame] = useState([]);
 
+  // Buscar todos os tipos de exame
+  const carregarTiposExame = async () => {
+    try {
+      const res = await fetch("/api/TipoExame", {
+        headers: { "x-api-key": API_KEY },
+      });
+
+      if (!res.ok) throw new Error("Erro ao buscar tipos de exame");
+
+      const data = await res.json();
+      setTiposExame(data);
+    } catch (error) {
+      console.error("Erro ao carregar tipos de exame:", error);
+    }
+  };
+
+  // Buscar agendamentos válidos
   const carregarChamados = async () => {
     try {
       const res = await fetch("/api/Agendamento", {
@@ -27,7 +45,7 @@ export default function PainelChamado() {
             ag.dataHoraDesistencia === null &&
             ag.cancelado === false
         )
-        .sort((a, b) => b.id - a.id); // Maior ID primeiro
+        .sort((a, b) => b.id - a.id); // Mais recente (maior ID) primeiro
 
       const [maisRecente, ...restantes] = chamadosValidos;
 
@@ -38,9 +56,20 @@ export default function PainelChamado() {
     }
   };
 
+  // Buscar o nome do exame pelo ID
+  const buscarNomeExame = (id) => {
+    const exame = tiposExame.find((ex) => ex.id === id);
+    return exame ? exame.nome : "Exame não informado";
+  };
+
   useEffect(() => {
+    carregarTiposExame();
     carregarChamados();
-    const intervalo = setInterval(carregarChamados, 3000); // Atualiza a cada 3 segundos
+
+    const intervalo = setInterval(() => {
+      carregarChamados();
+    }, 3000);
+
     return () => clearInterval(intervalo);
   }, []);
 
@@ -59,7 +88,9 @@ export default function PainelChamado() {
         {chamadoAtual ? (
           <>
             <h1 className="text-9xl">{chamadoAtual.nome}</h1>
-            <p className="text-3xl text-blue-300 mt-2">ID: {chamadoAtual.id}</p>
+            <p className="text-3xl text-blue-300 mt-2">
+              {buscarNomeExame(chamadoAtual.tipoExameId)}
+            </p>
           </>
         ) : (
           <h1 className="text-5xl text-white">Aguardando chamado...</h1>
@@ -79,7 +110,9 @@ export default function PainelChamado() {
             className="flex-1 bg-blue-900 text-amber-50 p-4 m-2 mt-3 mb-3 flex flex-col justify-center text-center"
           >
             <h1 className="text-3xl">{paciente.nome}</h1>
-            <p className="text-lg text-blue-300 mt-1">ID: {paciente.id}</p>
+            <p className="text-lg text-blue-300 mt-1">
+              {buscarNomeExame(paciente.tipoExameId)}
+            </p>
           </div>
         ))}
       </div>
