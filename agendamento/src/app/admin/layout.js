@@ -7,7 +7,8 @@ export const metadata = {
 
 export default function AdminLayout({ children }) {
   const botoes = [
-    { label: "Agendamento", rota: "/admin/cadastro/agendamento" },
+    { label: "Cadastrar Agendamento", rota: "/admin/cadastro/agendamento" },
+    { label: "Todos Agendamento", rota: "/admin/lista/agendamentos" },
     { label: "Administração", rota: "/admin/cadastro/administrador" },
     { label: "Secretaria", rota: "/admin/cadastro/secretaria" },
     { label: "Exames", rota: "/admin/cadastro/exames" },
