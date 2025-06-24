@@ -12,6 +12,7 @@ export default function AdminLayout({ children }) {
     { label: "Administração", rota: "/admin/cadastro/administrador" },
     { label: "Secretaria", rota: "/admin/cadastro/secretaria" },
     { label: "Exames", rota: "/admin/cadastro/exames" },
+    { label: "Todos Exames", rota: "/admin/lista/exames" },
     { label: "Entrada de Paciente", rota: "/admin/entrada/paciente" },
   ];
 
