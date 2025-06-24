@@ -101,7 +101,7 @@ export default function ListaAgendamentos() {
                 <td className="border px-2 py-1 text-left">{ag.tipoExame}</td>
                 <td className="border px-2 py-1 text-center">{new Date(ag.dataHoraExame).toLocaleString("pt-BR")}</td>
                 <td className="border px-2 py-1 text-center">{ag.cancelado ? "Sim" : "Não"}</td>
-                <td className="border px-2 py-1 text-center">{ag.comparecimento ?? "-"}</td>
+                <td className="border px-2 py-1 text-center">{ag.comparecimento === null ? "-" : 'Confirmado'}</td>
                 <td className="border px-2 py-1 text-center">{ag.confirmacaoComparecimento ?? "-"}</td>
                 <td className="border px-2 py-1 text-center">{ag.confirmacaoChamada ?? "-"}</td>
                 <td className="border px-2 py-1 text-center">{ag.dataHoraInicial ?? "-"}</td>
