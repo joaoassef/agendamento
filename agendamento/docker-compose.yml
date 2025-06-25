@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  cloner_api:
+    image: alpine/git
+    volumes:
+      - ./api:/git
+    command: clone --single-branch --depth 1 https://github.com/kaioseni/MedifyNow.git /git
+
+  cloner_site:
+    image: alpine/git
+    volumes:
+      - ./site:/git
+    command: clone --single-branch --depth 1 https://github.com/joaoassef/agendamento.git /git
+
+  site:
+    build:
+      context: ./site
+    depends_on:
+      - cloner_site
+      - api
+    ports:
+      - "5000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5236
+
+  api:
+    build:
+      context: ./api
+    depends_on:
+      - cloner_api
+      - sgbd
+    ports:
+      - "5236:8080"
+      - "7157:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sgbd;Database=MedifyNowDb;User=sa;Password=Senh@123;
+
+  sgbd:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - SA_PASSWORD=Senh@123
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - dbdata:/var/opt/mssql
+
+volumes:
+  dbdata:
