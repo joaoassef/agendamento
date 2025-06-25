@@ -45,11 +45,8 @@ export default function ListaUsuarios() {
         },
       });
 
-      console.log(res);
-
       if (!res.ok) throw new Error("Erro ao excluir usuário");
 
-      // Atualiza lista após excluir
       setUsuarios((prev) => prev.filter((u) => u.id !== id));
     } catch (err) {
       console.error("Erro ao excluir usuário:", err);
@@ -78,6 +75,7 @@ export default function ListaUsuarios() {
               <th className="text-left p-2">E-mail</th>
               <th className="text-left p-2">Nascimento</th>
               <th className="text-left p-2">Ativo</th>
+              <th className="text-left p-2">Login</th>
               <th className="text-left p-2">Ações</th>
             </tr>
           </thead>
@@ -99,17 +97,28 @@ export default function ListaUsuarios() {
                   )}
                 </td>
                 <td className="p-2">
-                  <button
-                    onClick={() => excluirUsuario(u.id)}
-                    disabled={excluindo === u.id}
-                    className={`text-sm text-white px-3 py-1 rounded ${
-                      excluindo === u.id
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-red-600 hover:bg-red-700"
-                    }`}
-                  >
-                    {excluindo === u.id ? "Excluindo..." : "Excluir"}
-                  </button>
+                  {u.login ? (
+                    <span className="text-green-600 font-semibold">Sim</span>
+                  ) : (
+                    <span className="text-red-600 font-semibold">Não</span>
+                  )}
+                </td>
+                <td className="p-2">
+                  {u.login ? (
+                    <span className="text-gray-400">-</span>
+                  ) : (
+                    <button
+                      onClick={() => excluirUsuario(u.id)}
+                      disabled={excluindo === u.id}
+                      className={`text-sm text-white px-3 py-1 rounded ${
+                        excluindo === u.id
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-red-600 hover:bg-red-700"
+                      }`}
+                    >
+                      {excluindo === u.id ? "Excluindo..." : "Excluir"}
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
