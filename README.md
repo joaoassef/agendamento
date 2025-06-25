@@ -36,18 +36,18 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ## ✅ Funcionalidades Principais
 
-- Primeira execução com cadastro de administrador e tempo padrão de atraso;
-- Autenticação de usuários;
-- Dashboard personalizado por perfil;
-- Gerenciamento de tipos de exames;
+- ✅ Primeira execução com cadastro de administrador e tempo padrão de atraso;
+- ✅ Autenticação de usuários;
+- ✅ Dashboard personalizado de agendamentos;
+- ✅ Gerenciamento de tipos de exames;
 - Cadastro e manutenção de usuários;
-- Redefinição de senha com verificação por e-mail;
-- Agendamento e cancelamento de exames;
-- Confirmação de chegada do paciente via terminal;
-- Painel digital com status de exames em tempo real;
-- Chamadas para confirmação e realização de exames;
-- Finalização e registro de desistências e ausências;
-- Resumo de atividade diária com filtros.
+- ✅ Redefinição de senha com verificação por e-mail;
+- ✅ Agendamento e cancelamento de exames;
+- ✅ Confirmação de chegada do paciente via terminal;
+- ✅ Painel digital com status de exames em tempo real;
+- ✅ Chamadas para confirmação e realização de exames;
+- ✅ Finalização e registro de desistências e ausências;
+- ✅ Resumo de atividade diária com filtros.
 
 ---
 
@@ -55,15 +55,15 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ### Frontend
 - HTML5, CSS3, JavaScript
-- Bootstrap / Tailwind CSS (dependendo da implementação escolhida)
+- Site React com Next
+- Tailwind CSS
 
 ### Backend
-- Site React com Next
 - API C# com SqlServer
 - Docker
 
 ### Outras Tecnologias
-- Git / GitHub para versionamento e entrega
+- Git / Docker
 
 ---
 
@@ -79,17 +79,17 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ## 🔐 Requisitos de Segurança
 
-- Senhas armazenadas com hash seguro;
-- Verificação de e-mail para troca de senha e atualização de e-mail;
+- ✅ Senhas armazenadas com hash seguro;
+- ✅ Verificação de e-mail para troca de senha e atualização de e-mail;
 - Validação de entrada de dados e proteção contra injeções;
-- Controle de acesso por perfil de usuário.
+- ✅ Controle de acesso por perfil de usuário.
 
 ---
 
 ## 📺 Funcionalidades Públicas (sem login)
 
-- Confirmação de chegada de paciente via CPF;
-- Painel digital com lista de exames e status de atendimento.
+- ✅ Confirmação de chegada de paciente via CPF;
+- ✅ Painel digital com lista de exames e status de atendimento.
 
 ---
 
