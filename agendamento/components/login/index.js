@@ -1,31 +1,25 @@
-"use client"; // Indica que esse componente é renderizado no cliente
+"use client";
 
-import { useCheckCadastro } from "@/useCheckCadastro"; // Hook customizado para verificar se há administradores cadastrados
-import { CadastroAdmin } from "../cadastroAdmin"; // Componente que renderiza o formulário de cadastro de administrador
+import { useCheckCadastro } from "@/useCheckCadastro";
+import { CadastroAdmin } from "../cadastroAdmin";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Hook do Next.js para navegação no client-side
+import { useRouter } from "next/navigation";
 
-// Informações de SEO para a página, usadas automaticamente pelo App Router
 export const metadata = {
   title: "Login",
   description: "Página de acesso ao sistema",
 };
 
-// Componente principal da página de login
 export function Login() {
-  // Estado para armazenar os dados do formulário de login
   const [formData, setFormData] = useState({
     email: "",
     senha: "",
   });
 
-  // Estado para mensagens de erro ou sucesso
   const [mensagem, setMensagem] = useState("");
-
-  // Hook de navegação do Next.js
   const router = useRouter();
+  const admin = useCheckCadastro();
 
-  // Atualiza o estado formData à medida que o usuário digita
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -34,12 +28,10 @@ export function Login() {
     }));
   };
 
-  // Envia os dados do formulário para autenticação
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Previne recarregamento da página
+    event.preventDefault();
 
     try {
-
       const response = await fetch("/api/Autenticacao/Login", {
         method: "POST",
         headers: {
@@ -53,88 +45,88 @@ export function Login() {
         }),
       });
 
-      console.log("Login:", response);
-
-      // Se a resposta não for OK, lança erro detalhado
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`OPS! Erro no login.`); //Para mostar o erro ---> ${errorText}
+        throw new Error("OPS! Erro no login.");
       }
 
-      // Resposta bem-sucedida
       const resultado = await response.json();
       console.log("Login bem-sucedido!", resultado);
-      
 
-      // Define mensagem de sucesso e redireciona
+      // ✅ Define cookie de autenticação
+      document.cookie = "auth=true; path=/";
+
       setMensagem("✅ Login realizado com sucesso!");
-      router.push("/admin"); // Redireciona para o painel do sistema
+
+      document.cookie = "auth=true; path=/";
+      document.cookie = `nome=${resultado.nome}; path=/`;
+
+      router.push("/admin");
     } catch (error) {
-      // Mostra mensagem de erro em caso de falha
-      setMensagem(error.message);
+      setMensagem(error.message || "Erro ao realizar login.");
     }
   };
 
-  // Hook que verifica se já existe algum administrador cadastrado
-  const admin = useCheckCadastro(); // Retorna 0 se não houver nenhum admin
-
-  console.log("Status do administrador:", admin); // Log para depuração
-
   return (
-    <div className="h-screen flex items-center justify-center bg-blue-950">
-      {admin === 0 ? (
-        // Se não há admin cadastrado, exibe o formulário de cadastro
-        <CadastroAdmin />
-      ) : (
-        // Caso contrário, exibe o formulário de login
-        <div className="flex justify-center border-1 border-solid p-4 rounded-md bg-amber-50">
-          <form onSubmit={handleSubmit} method="POST">
-            <div>
-              <div>
-                <label>Usuário</label>
-              </div>
-              <input
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="bg-zinc-200 px-3 py-1 rounded-md mb-4"
-                required
-              />
-            </div>
+    <div className=" bg-blue-950">
+      <div>
+        <h1 className="text-xl font-bold mb-0 text-blue-400 p-3">
+          Medi<span class="text-white">fy</span>Now
+        </h1>
+      </div>
+      <div className="h-screen flex items-center justify-center bg-blue-950">
+        <div>
+          {admin === 0 ? (
+            <CadastroAdmin />
+          ) : (
+            <div className="flex justify-center border border-gray-300 p-6 rounded-md bg-amber-50 shadow-lg">
+              <form onSubmit={handleSubmit} method="POST" className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    Usuário
+                  </label>
+                  <input
+                    type="text"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="bg-zinc-200 px-3 py-2 rounded-md w-full"
+                    required
+                  />
+                </div>
 
-            <div>
-              <div>
-                <label>senha</label>
-              </div>
-              <input
-                type="password"
-                name="senha"
-                value={formData.senha}
-                onChange={handleChange}
-                className="bg-zinc-200 px-3 py-1 rounded-md mb-4"
-                required
-              />
-            </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    Senha
+                  </label>
+                  <input
+                    type="password"
+                    name="senha"
+                    value={formData.senha}
+                    onChange={handleChange}
+                    className="bg-zinc-200 px-3 py-2 rounded-md w-full"
+                    required
+                  />
+                </div>
 
-            <div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white px-3 py-1 rounded-md"
-              >
-                Entrar
-              </button>
+                <div>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  >
+                    Entrar
+                  </button>
 
-              {/* Exibe mensagem de erro ou sucesso */}
-              {mensagem && (
-                <span className="mt-4 text-center ps-2 text-red-600 text-sm">
-                  {mensagem}
-                </span>
-              )}
+                  {mensagem && (
+                    <p className="mt-3 text-center text-red-600 text-sm">
+                      {mensagem}
+                    </p>
+                  )}
+                </div>
+              </form>
             </div>
-          </form>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
