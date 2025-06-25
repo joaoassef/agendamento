@@ -11,10 +11,15 @@ export default function AdminLayout({ children }) {
 
   const botoes = [
     { label: "| Dashboard", rota: "/admin/dashboard" },
-    { label: "| Cadastrar Agendamento", rota: "/admin/cadastro/agendamento" },
+
     { label: "| Todos Agendamento", rota: "/admin/lista/agendamentos" },
-    { label: "| Cadastrar Exames", rota: "/admin/cadastro/exames" },
+    { label: "| Cadastrar Agendamento", rota: "/admin/cadastro/agendamento" },
+    
     { label: "| Todos Exames", rota: "/admin/lista/exames" },
+    { label: "| Cadastrar Exames", rota: "/admin/cadastro/exames" },
+
+    { label: "| Todos Usuários", rota: "/admin/lista/usuarios" },
+    { label: "| Cadastro Usuário", rota: "/admin/cadastro/usuario" },
   ];
 
   const handleLogout = () => {
