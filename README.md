@@ -36,18 +36,18 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ## ✅ Funcionalidades Principais
 
-- Primeira execução com cadastro de administrador e tempo padrão de atraso;
-- Autenticação de usuários;
-- Dashboard personalizado por perfil;
-- Gerenciamento de tipos de exames;
+- ✅ Primeira execução com cadastro de administrador e tempo padrão de atraso;
+- ✅ Autenticação de usuários;
+- ✅ Dashboard personalizado de agendamentos;
+- ✅ Gerenciamento de tipos de exames;
 - Cadastro e manutenção de usuários;
-- Redefinição de senha com verificação por e-mail;
-- Agendamento e cancelamento de exames;
-- Confirmação de chegada do paciente via terminal;
-- Painel digital com status de exames em tempo real;
-- Chamadas para confirmação e realização de exames;
-- Finalização e registro de desistências e ausências;
-- Resumo de atividade diária com filtros.
+- ✅ Redefinição de senha com verificação por e-mail;
+- ✅ Agendamento e cancelamento de exames;
+- ✅ Confirmação de chegada do paciente via terminal;
+- ✅ Painel digital com status de exames em tempo real;
+- ✅ Chamadas para confirmação e realização de exames;
+- ✅ Finalização e registro de desistências e ausências;
+- ✅ Resumo de atividade diária com filtros.
 
 ---
 
