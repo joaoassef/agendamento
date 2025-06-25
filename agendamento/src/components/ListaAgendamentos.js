@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -15,6 +16,7 @@ export default function ListaAgendamentos() {
         fetch("/api/Agendamento", { headers: { "x-api-key": API_KEY } }),
         fetch("/api/TipoExame", { headers: { "x-api-key": API_KEY } }),
       ]);
+
       if (!resAg.ok || !resTipos.ok) throw new Error("Erro ao buscar dados");
 
       const [dadosAg, dadosTipos] = await Promise.all([
@@ -25,9 +27,9 @@ export default function ListaAgendamentos() {
       const agComExame = dadosAg
         .map((ag) => {
           const tipo = dadosTipos.find((t) => t.id === ag.tipoExameId);
-          return { ...ag, tipoExame: tipo ? `${tipo.id} - ${tipo.nome}` : "-" };
+          return { ...ag, tipoExame: tipo ? `${tipo.nome}` : "-" };
         })
-        .sort((a, b) => new Date(b.dataHoraExame) - new Date(a.dataHoraExame)); // <-- aqui
+        .sort((a, b) => new Date(b.dataHoraExame) - new Date(a.dataHoraExame));
 
       setAgendamentos(agComExame);
       setStatus("ok");
@@ -38,7 +40,10 @@ export default function ListaAgendamentos() {
   };
 
   useEffect(() => {
-    carregarAgendamentos();
+    carregarAgendamentos(); // primeira carga
+    const intervalo = setInterval(carregarAgendamentos, 3000); // auto update
+
+    return () => clearInterval(intervalo); // limpar ao desmontar
   }, []);
 
   const chamarPaciente = async (id) => {
@@ -138,9 +143,7 @@ export default function ListaAgendamentos() {
           type="datetime-local"
           className="border p-2"
           value={filtro.dataHoraExame}
-          onChange={(e) =>
-            setFiltro({ ...filtro, dataHoraExame: e.target.value })
-          }
+          onChange={(e) => setFiltro({ ...filtro, dataHoraExame: e.target.value })}
         />
       </div>
 
@@ -181,29 +184,22 @@ export default function ListaAgendamentos() {
                 </td>
                 <td className="border px-2 py-1 text-center">
                   {ag.dataHoraInicial
-                    ? new Date(ag.dataHoraInicial).toLocaleString("pt-BR", {
-                        day: "2-digit", month: "2-digit", year: "numeric",
-                        hour: "2-digit", minute: "2-digit", second: "2-digit"
-                      })
+                    ? new Date(ag.dataHoraInicial).toLocaleString("pt-BR")
                     : "-"}
                 </td>
                 <td className="border px-2 py-1 text-center">
                   {ag.dataHoraFinalizacao
-                    ? new Date(ag.dataHoraFinalizacao).toLocaleString("pt-BR", {
-                        day: "2-digit", month: "2-digit", year: "numeric",
-                        hour: "2-digit", minute: "2-digit", second: "2-digit"
-                      })
+                    ? new Date(ag.dataHoraFinalizacao).toLocaleString("pt-BR")
                     : "-"}
                 </td>
                 <td className="border px-2 py-1 text-center">
                   {ag.dataHoraDesistencia
-                    ? new Date(ag.dataHoraDesistencia).toLocaleString("pt-BR", {
-                        day: "2-digit", month: "2-digit", year: "numeric",
-                        hour: "2-digit", minute: "2-digit", second: "2-digit"
-                      })
+                    ? new Date(ag.dataHoraDesistencia).toLocaleString("pt-BR")
                     : "-"}
                 </td>
-                <td className="border px-2 py-1">{ag.motivoDesistencia ?? "-"}</td>
+                <td className="border px-2 py-1 text-center">
+                  {ag.motivoDesistencia ?? "-"}
+                </td>
                 <td className="border px-2 py-1 space-y-1 text-center">
                   {ag.comparecimento && ag.confirmacaoChamada == null && (
                     <button
