@@ -85,8 +85,7 @@ export default function AgendamentoForm() {
       setTimeout(() => {
         setFormData(camposIniciais);
         setStatus(null);
-      }, 3000); // Apos 3 segundos, limpa o formulário e o status deixa proximo agendamento
-
+      }, 3000);
     } catch (error) {
       console.error("Erro no submit:", error);
       setStatus("error");
@@ -183,21 +182,28 @@ export default function AgendamentoForm() {
         </select>
       </div>
 
-      <button
-        type="submit"
-        className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition w-full"
-      >
-        Agendar
-      </button>
-
-      {status === "loading" && <p className="text-gray-500">Enviando...</p>}
-      {status === "success" && (
-        <p className="text-green-600">Agendamento realizado com sucesso!</p>
-      )}
-      {status === "error" && (
-        <p className="text-red-600">
-          Erro ao realizar agendamento. Veja o console.
-        </p>
+      {/* Botão ou mensagem de status */}
+      {status ? (
+        <div
+          className={`w-full text-center font-semibold p-3 rounded-lg ${
+            status === "loading"
+              ? "bg-gray-100 text-gray-700"
+              : status === "success"
+              ? "bg-green-100 text-green-800 border border-green-400"
+              : "bg-red-100 text-red-800 border border-red-400"
+          }`}
+        >
+          {status === "loading" && "Enviando..."}
+          {status === "success" && "✅ Agendamento realizado com sucesso!"}
+          {status === "error" && "❌ Erro ao realizar agendamento. Verifique o console."}
+        </div>
+      ) : (
+        <button
+          type="submit"
+          className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition w-full"
+        >
+          Agendar
+        </button>
       )}
     </form>
   );
