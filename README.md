@@ -79,17 +79,17 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ## 🔐 Requisitos de Segurança
 
-- Senhas armazenadas com hash seguro;
-- Verificação de e-mail para troca de senha e atualização de e-mail;
+- ✅ Senhas armazenadas com hash seguro;
+- ✅ Verificação de e-mail para troca de senha e atualização de e-mail;
 - Validação de entrada de dados e proteção contra injeções;
-- Controle de acesso por perfil de usuário.
+- ✅ Controle de acesso por perfil de usuário.
 
 ---
 
 ## 📺 Funcionalidades Públicas (sem login)
 
-- Confirmação de chegada de paciente via CPF;
-- Painel digital com lista de exames e status de atendimento.
+- ✅ Confirmação de chegada de paciente via CPF;
+- ✅ Painel digital com lista de exames e status de atendimento.
 
 ---
 
