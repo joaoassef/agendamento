@@ -1,4 +1,6 @@
-# Sistema Web de Agendamento de Exames
+# Sistema Web de Agendamento de Exames MediFyNow
+
+# API de comunicação https://github.com/kaioseni/MedifyNow
 
 ## 📘 Projeto de Avaliação - Pós-Graduação IFSP Barretos
 
@@ -52,11 +54,11 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 - Bootstrap / Tailwind CSS (dependendo da implementação escolhida)
 
 ### Backend
-- PHP 8 / Laravel (ou framework MVC equivalente)
-- MySQL / MariaDB
+- Site React com Next
+- API C# com SqlServer
+- Docker
 
 ### Outras Tecnologias
-- Servidor de e-mail (SMTP com PHP Mailer ou Laravel Mail)
 - Git / GitHub para versionamento e entrega
 
 ---
@@ -68,13 +70,6 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 - Interface desacoplada e responsiva;
 - Backend estruturado para manipulação dos dados e lógica de negócio;
 - Frontend focado em usabilidade e acessibilidade.
-
----
-
-## 📅 Entrega
-
-- **Data limite:** 04 de junho de 2025 às 23h59
-- **Forma de entrega:** Repositório público no GitHub/GitLab + submissão via Moodle IFSP Barretos
 
 ---
 
@@ -96,7 +91,7 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ## 👨‍💻 Desenvolvedores
 
-> João Assef 
+> João Assef e Kaio Seni
 > Curso: Pós-Graduação em Programação para Internet e Dispositivos Móveis  
 > Instituto Federal de São Paulo – campus Barretos
 
