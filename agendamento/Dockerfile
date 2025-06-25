@@ -1,21 +1,21 @@
-# Etapa 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-WORKDIR /src
-
-COPY . .
-
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/publish
-
-# Etapa 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+# Etapa 1 - Build da aplicação
+FROM node:18 AS builder
 
 WORKDIR /app
 
-COPY --from=build /app/publish .
+COPY . .
 
-ENV ASPNETCORE_URLS=http://+:8080
-EXPOSE 8080
+RUN npm install
+RUN npm run build
 
-ENTRYPOINT ["dotnet", "MedifyNow.dll"]
+# Etapa 2 - Runtime em imagem mais leve
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app ./
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
