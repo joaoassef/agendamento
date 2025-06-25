@@ -55,15 +55,15 @@ O sistema foi desenvolvido com o objetivo de informatizar o processo de agendame
 
 ### Frontend
 - HTML5, CSS3, JavaScript
-- Bootstrap / Tailwind CSS (dependendo da implementação escolhida)
+- Site React com Next
+- Tailwind CSS
 
 ### Backend
-- Site React com Next
 - API C# com SqlServer
 - Docker
 
 ### Outras Tecnologias
-- Git / GitHub para versionamento e entrega
+- Git / Docker
 
 ---
 
