@@ -23,7 +23,6 @@ export default function AdminLayout({ children }) {
   ];
 
   const handleLogout = () => {
-    document.cookie = "auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
     document.cookie = "nome=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
     router.push("/painel-adm");
   };

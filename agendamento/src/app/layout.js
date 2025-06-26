@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Sistema de agendamento",
-  description: "Sistema de agendamento de exames",
+  title: "MedifyNow - Sistema de agendamento",
+  description: "Sistema de agendamento de exames MedifyNow",
 };
 
 export default function RootLayout({ children }) {

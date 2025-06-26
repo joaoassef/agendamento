@@ -1,28 +1,34 @@
- //"use client";
+"use client";
 import { useState, useEffect } from 'react';
 
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+
 export function useCheckCadastro() {
-  const [status, setStatus] = useState(0); // padrão: 0
+  const [status, setStatus] = useState(0); // 0 = não cadastrado, 1 = cadastrado
 
   useEffect(() => {
     const check = async () => {
       try {
         const response = await fetch('/api/Administrador', {
-          method: 'GET', 
+          method: 'GET',
           headers: {
-            'x-api-key': 'fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f'
+            'x-api-key': API_KEY,
           },
         });
 
-        console.log("Status do administrador:", response.ok); 
+        console.log("Status da requisição:", response.ok);
 
         if (!response.ok) {
-          throw new Error(`Erro! status: ${response.status}`);
+          throw new Error(`Erro! Status HTTP: ${response.status}`);
         }
 
         const data = await response.json();
-        setStatus(data.length > 0 ? 1 : 0); 
+
+        // Se encontrou algum administrador, considera como cadastrado
+        setStatus(data.length > 0 ? 1 : 0);
+
       } catch (error) {
+        console.error("Erro ao verificar cadastro:", error);
         setStatus(0);
       }
     };
@@ -30,5 +36,5 @@ export function useCheckCadastro() {
     check();
   }, []);
 
-  return status; // 1 ou 0
+  return status;
 }
