@@ -67,6 +67,7 @@ export default function PainelChamado() {
     carregarTiposExame();
     carregarChamados();
 
+    //Isso eu não gostei mas kkkkkkkkk
     const intervalo = setInterval(() => {
       carregarChamados();
     }, 3000);
