@@ -1,7 +1,9 @@
-"use client"; // Garanta que o componente seja tratado como "client-side"
+"use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Importação correta do `useRouter`
+import { useRouter } from "next/navigation";
+
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export function CadastroAdmin() {
   const [formData, setFormData] = useState({
@@ -11,7 +13,8 @@ export function CadastroAdmin() {
   });
 
   const [mensagem, setMensagem] = useState("");
-  const router = useRouter(); // Usando o `useRouter` corretamente dentro do componente funcional
+  const [enviando, setEnviando] = useState(false);
+  const router = useRouter();
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -22,6 +25,8 @@ export function CadastroAdmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setEnviando(true);
+    setMensagem("⏳ Aguarde, estamos cadastrando...");
 
     const dados = {
       ...formData,
@@ -29,44 +34,33 @@ export function CadastroAdmin() {
     };
 
     try {
-      // const response = await fetch("http://localhost:5236/api/Administrador", {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "x-api-key":
-      //       "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
-      //   },
-      //   body: JSON.stringify(dados),
-      // });
-
-      const query = new URLSearchParams(dados).toString();
-      const response = await fetch(
-        `/api/Administrador?${query}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": "fwjfpjewfokwfwqww65fdqw4fwe4veew41f5e6fw65c1wec56e1ve56qf6ewfe1f",
-          },
-        }
-      );
+      const response = await fetch("/api/Administrador", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+        },
+        body: JSON.stringify(dados),
+      });
 
       if (!response.ok) {
-        const errorBody = await response.text(); // Obtenha a resposta de erro bruta
-        console.error("API Error Response:", errorBody); // Registre o erro bruto
-        throw new Error(
-          `Erro ao cadastrar administrador: ${response.status} - ${response.statusText} - ${errorBody}`
-        );
+        const errorText = await response.text();
+        console.error("API Error Response:", errorText);
+        throw new Error(`Erro ao cadastrar: ${response.statusText}`);
       }
 
-      const resultado = await response.json();
       setMensagem("✅ Administrador cadastrado com sucesso!");
+      setTimeout(() => {
+        setMensagem("");
+        setEnviando(false);
+        setFormData({ Nome: "", Email: "", Senha: "" });
+        router.push("/");
+      }, 4000);
     } catch (error) {
       console.error("Erro:", error.message);
       setMensagem(`❌ ${error.message}`);
+      setEnviando(false);
     }
-
-    // Redireciona para a página inicial após o sucesso
-    router.push("/"); // Redireciona para a página principal ou uma página específica
   };
 
   return (
@@ -74,10 +68,7 @@ export function CadastroAdmin() {
       <div className="flex justify-center border p-6 rounded-md bg-amber-50 w-[700px]">
         <div className="px-6 w-full">
           <h1 className="text-2xl font-bold mb-4">Cadastrar Administrador</h1>
-          <p className="mb-4">
-            Preencha os dados abaixo para criar o primeiro administrador do
-            sistema.
-          </p>
+          <p className="mb-4">Preencha os dados abaixo para criar o primeiro administrador do sistema.</p>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -116,12 +107,16 @@ export function CadastroAdmin() {
               />
             </div>
 
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
-            >
-              Cadastrar
-            </button>
+            {!enviando ? (
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md w-full"
+              >
+                Cadastrar
+              </button>
+            ) : (
+              <div className="text-blue-700 text-center font-semibold">⏳ Aguarde...</div>
+            )}
 
             {mensagem && (
               <div className="mt-4 text-sm text-center text-red-600">
